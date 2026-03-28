@@ -7,10 +7,15 @@ st.title("📊 Kolhapur MIDC – Smart Factory Dashboard (Industry 4.0)")
 st.markdown("Upload your factory Excel data and instantly visualize insights.")
 
 # File upload
-uploaded_file = st.file_uploader("Upload Factory Excel File", type=["xlsx", "xls"])
+uploaded_file = st.file_uploader("Upload File", type=["xlsx", "xls", "csv"])
 
+if uploaded_file.name.endswith(".csv"):
+    df = pd.read_csv(uploaded_file)
+else:
+    df = pd.read_excel(uploaded_file, engine="openpyxl")
+    
 if uploaded_file:
-    df = pd.read_excel(uploaded_file)
+    # df = pd.read_excel(uploaded_file)
 
     # Expected columns:
     # Date, Machine, Shift, Production, Downtime, Defects, Profit, Customer, Order_Value, Payment_Status
